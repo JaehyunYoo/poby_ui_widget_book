@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:poby_ui/extensions/text_string_extension.dart';
 
-class CustomFilledButton extends StatefulWidget {
+class CustomFilledIconButton extends StatelessWidget {
+  final Widget icon;
   final String textTitle;
   // size
   final double? width;
@@ -22,10 +23,15 @@ class CustomFilledButton extends StatefulWidget {
   final double? borderRadius;
   final ButtonStyle? buttonStyle;
 
-  const CustomFilledButton({
+  const CustomFilledIconButton({
     super.key,
     required this.textTitle,
+    required this.icon,
+    this.width,
+    this.height,
     this.textColor,
+    this.backgroundColor,
+    this.disabledColor,
     this.padding,
     this.onPressed,
     this.onLongPress,
@@ -34,38 +40,30 @@ class CustomFilledButton extends StatefulWidget {
     this.borderWidth,
     this.borderRadius,
     this.buttonStyle,
-    this.backgroundColor,
-    this.width,
-    this.height,
-    this.disabledColor,
   });
 
   @override
-  State<CustomFilledButton> createState() => _CustomFilledButtonState();
-}
-
-class _CustomFilledButtonState extends State<CustomFilledButton> {
-  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: widget.width ?? MediaQuery.of(context).size.width,
-      height: widget.height ?? 52,
-      child: FilledButton(
-        onPressed: widget.onPressed,
-        onHover: widget.onHover,
-        onFocusChange: widget.onFocusChange,
-        onLongPress: widget.onLongPress,
-        style: widget.buttonStyle ??
+      width: width ?? MediaQuery.of(context).size.width,
+      height: height ?? 56,
+      child: FilledButton.icon(
+        onPressed: onPressed,
+        onHover: onHover,
+        onFocusChange: onFocusChange,
+        onLongPress: onLongPress,
+        style: buttonStyle ??
             FilledButton.styleFrom(
-              padding: widget.padding ?? EdgeInsets.zero,
+              padding: padding ?? EdgeInsets.zero,
               splashFactory: NoSplash.splashFactory,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(widget.borderRadius ?? 10),
+                borderRadius: BorderRadius.circular(borderRadius ?? 15),
               ),
-              backgroundColor: widget.backgroundColor,
-              disabledBackgroundColor: widget.disabledColor,
+              backgroundColor: backgroundColor,
+              disabledBackgroundColor: disabledColor,
             ),
-        child: widget.textTitle.text.color(widget.textColor).bold.make(),
+        label: textTitle.customText.color(textColor).bold.make(),
+        icon: icon,
       ),
     );
   }

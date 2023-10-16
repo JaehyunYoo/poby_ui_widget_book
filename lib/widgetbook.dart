@@ -4,8 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:poby_ui/pages/home_screen.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:flutter_web_plugins/url_strategy.dart' show usePathUrlStrategy;
-import 'components/filed_button/uc_filled_button.dart';
-import 'components/filed_button/w_filed_button.dart';
+import 'components/components.dart';
 
 void main() {
   usePathUrlStrategy();
@@ -27,19 +26,14 @@ class WidgetBookBuildApp extends StatelessWidget {
               name: 'Filled',
               children: [
                 filledButtonUseCase(context),
+                filledTonalButton(context),
+                filledIconButton(context),
               ],
             ),
             WidgetbookCategory(
               name: 'Outlined',
               children: [
-                WidgetbookUseCase(
-                  name: 'OutlinedButton',
-                  builder: (context) => Scaffold(
-                    body: CustomFilledButton(
-                      textTitle: context.knobs.string(label: 'label'),
-                    ),
-                  ),
-                ),
+                outlinedButton(context),
               ],
             ),
           ],
