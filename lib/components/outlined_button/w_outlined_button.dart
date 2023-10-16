@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:poby_ui/extensions/text_family_extension.dart';
+import 'package:poby_ui/extensions/text_string_extension.dart';
 
 class CustomOutlinedButton extends StatefulWidget {
   final String textTitle;

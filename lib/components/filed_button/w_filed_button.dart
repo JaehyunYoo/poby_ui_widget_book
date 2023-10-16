@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class CustomFiledButton extends StatefulWidget {
+class CustomFilledButton extends StatefulWidget {
   final String textTitle;
+  // size
+  final double? width;
+  final double? height;
   // color
   final Color? textColor;
-  final Color? borderColor;
   final Color? backgroundColor;
+  final Color? disabledColor;
   // padding
   final EdgeInsetsGeometry? padding;
   // event
@@ -19,11 +22,10 @@ class CustomFiledButton extends StatefulWidget {
   final double? borderRadius;
   final ButtonStyle? buttonStyle;
 
-  const CustomFiledButton({
+  const CustomFilledButton({
     super.key,
     required this.textTitle,
     this.textColor,
-    this.borderColor,
     this.padding,
     this.onPressed,
     this.onLongPress,
@@ -33,25 +35,38 @@ class CustomFiledButton extends StatefulWidget {
     this.borderRadius,
     this.buttonStyle,
     this.backgroundColor,
+    this.width,
+    this.height,
+    this.disabledColor,
   });
 
   @override
-  State<CustomFiledButton> createState() => _CustomFiledButtonState();
+  State<CustomFilledButton> createState() => _CustomFilledButtonState();
 }
 
-class _CustomFiledButtonState extends State<CustomFiledButton> {
+class _CustomFilledButtonState extends State<CustomFilledButton> {
   @override
   Widget build(BuildContext context) {
-    return FilledButton(
-      onPressed: widget.onPressed,
-      onHover: widget.onHover,
-      onFocusChange: widget.onFocusChange,
-      onLongPress: widget.onLongPress,
-      style: widget.buttonStyle ??
-          FilledButton.styleFrom(
-            backgroundColor: widget.backgroundColor,
-          ),
-      child: widget.textTitle.text.bold.make(),
+    return SizedBox(
+      width: widget.width ?? MediaQuery.of(context).size.width,
+      height: widget.height ?? 52,
+      child: FilledButton(
+        onPressed: widget.onPressed,
+        onHover: widget.onHover,
+        onFocusChange: widget.onFocusChange,
+        onLongPress: widget.onLongPress,
+        style: widget.buttonStyle ??
+            FilledButton.styleFrom(
+              padding: widget.padding ?? EdgeInsets.zero,
+              splashFactory: NoSplash.splashFactory,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(widget.borderRadius ?? 10),
+              ),
+              backgroundColor: widget.backgroundColor,
+              disabledBackgroundColor: widget.disabledColor,
+            ),
+        child: widget.textTitle.text.color(widget.textColor).bold.make(),
+      ),
     );
   }
 }
